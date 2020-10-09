@@ -1,0 +1,37 @@
+version: "3"
+# 哨兵模式-主从配置文件
+services:
+  redis-sentinel-master1:
+    image: redis
+    container_name: redis-sentinel-master1
+    ports:
+      - "6391:6391"
+    volumes:
+      - C:\worktool\dockerData\redis-sentinel\config\master.conf:/usr/local/etc/redis/redis.conf
+      - C:\worktool\dockerData\redis-sentinel\data\master:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+  
+  redis-sentinel-slave1:
+    image: redis
+    container_name: redis-sentinel-slave1
+    ports:
+      - "6392:6392"
+    volumes:
+      - C:\worktool\dockerData\redis-sentinel\config\slave1.conf:/usr/local/etc/redis/redis.conf
+      - C:\worktool\dockerData\redis-sentinel\data\slave1:/data
+    # 添加--salveof，从节点开启主从复制；添加--replica-announce-ip,对外宣布自己的ip和端口
+    # command: redis-server /usr/local/etc/redis/redis.conf --slaveof redis-sentinel-master1 6391 --replica-announce-ip 从节点ip  --replica-announce-port  6392
+    command: redis-server /usr/local/etc/redis/redis.conf --slaveof redis-sentinel-master1 6391
+
+  
+  redis-sentinel-slave2:
+    image: redis
+    container_name: redis-sentinel-slave2
+    ports:
+      - "6393:6393"
+    volumes:
+      - C:\worktool\dockerData\redis-sentinel\config\slave2.conf:/usr/local/etc/redis/redis.conf
+      - C:\worktool\dockerData\redis-sentinel\data\slave2:/data
+    # 添加--salveof，从节点开启主从复制；添加--replica-announce-ip,对外宣布自己的ip和端口
+    # command: redis-server /usr/local/etc/redis/redis.conf --slaveof redis-sentinel-master1 6391 --replica-announce-ip 从节点ip  --replica-announce-port  6393
+    command: redis-server /usr/local/etc/redis/redis.conf  --slaveof redis-sentinel-master1 6391
