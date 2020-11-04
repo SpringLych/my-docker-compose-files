@@ -1,0 +1,15 @@
+version: "3"
+services:
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    volumes:
+      - E:\share:/srv 
+      - C:\worktool\dockerData\filebrowser\database.db:/database.db
+      - C:\worktool\dockerData\filebrowser\filebrowser.json:/.filebrowser.json
+    ports:
+      - "666:80"
+    environment: 
+      - FB_NOAUTH="true"
+      # - FB_USERNAME="user"
+      # - FB_PASSWORD="pwd"
