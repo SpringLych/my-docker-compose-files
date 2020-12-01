@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  zookeeper:
+    image: zookeeper
+    restart: always
+    container_name: zookeeper
+    volumes:
+      - C:\worktool\dockerData\zk\conf:/conf
+      - C:\worktool\dockerData\zk\data:/data
+      - C:\worktool\dockerData\zk\logs:/datalog
+    ports: 
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
