@@ -21,7 +21,7 @@ services:
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
     networks:
-      - elk
+      - elknet
 
   logstash:
     image: logstash:7.9.3
@@ -43,7 +43,7 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx512m -Xms512m"
     networks:
-      - elk
+      - elknet
     depends_on:
       - elasticsearch
 
@@ -65,11 +65,11 @@ services:
     ports:
       - "5601:5601"
     networks:
-      - elk
+      - elknet
     depends_on:
       - elasticsearch
 
 networks:
-  elk:
+  elknet:
     driver: bridge
 
