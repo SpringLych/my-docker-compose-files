@@ -35,6 +35,21 @@ services:
         source: .\logstash\pipeline
         target: /usr/share/logstash/pipeline
         read_only: true
+      # - type: bind
+      #   source: .\logstash\connect\mysql-connector-java-8.0.17.jar
+      #   target: /usr/share/logstash/mysql-connector-java-8.0.17.jar
+      #   read_only: true
+      # - type: bind
+      #   source: .\logstash\config\jdbc.sql
+      #   target: /usr/share/logstash/config/jdbc.sql
+      #   read_only: true
+      - .\logstash\connect\mysql-connector-java-8.0.17.jar:/usr/share/logstash/mysql-connector-java-8.0.17.jar
+      -  .\logstash\config\jdbc.sql:/usr/share/logstash/config/jdbc.sql
+      # - .\logstash\config\last_id.txt:/usr/share/logstash/config/last_id.txt
+      # - type: bind
+      #   source: .\logstash\config\last_id.txt
+      #   target: /usr/share/logstash/config/last_id.txt
+      #   read_only: false
     ports:
       - "5044:5044"
       - "5000:5000/tcp"
