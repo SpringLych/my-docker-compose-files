@@ -1,4 +1,4 @@
 *.jar
 
 elk/logstash/config/last_id.txt
-elk/logstash/config/jdbc.sql
+elk/logstash/config/*.sql

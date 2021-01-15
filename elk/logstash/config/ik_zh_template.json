@@ -1,0 +1,48 @@
+{
+    "index_patterns": [
+        "wiki_*"
+    ],
+    "order": 0,
+    "version": 1,
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 0,
+        "analysis": {
+            "analyzer": {
+                "wiki_analyzer": {
+                    "type": "custom",
+                    "tokenizer": "ik_max_word",
+                    "char_filter": [
+                        "wiki_char_filter"
+                    ]
+                }
+            },
+            "char_filter": {
+                "wiki_char_filter": {
+                  "escaped_tags": [],
+                  "type": "html_strip"
+                }
+              }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "content": {
+                "type": "text",
+                "analyzer": "wiki_analyzer"
+            },
+            "title": {
+                "type": "text",
+                "analyzer": "wiki_analyzer"
+            },
+            "ans_content": {
+                "type": "text",
+                "analyzer": "wiki_analyzer"
+            },
+            "qus_title": {
+                "type": "text",
+                "analyzer": "wiki_analyzer"
+            }
+        }
+    }
+}

@@ -2,15 +2,17 @@ version: '3.2'
 
 services:
   elasticsearch:
-    image: elasticsearch:7.9.3
+    # image: elasticsearch:7.9.3
+    build: 
+      context: elasticsearch/
     container_name: elasticsearch
     volumes:
       - type: bind
         source: .\elasticsearch\config\elasticsearch.yml
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
-      - C:\worktool\dockerData\es\data:/usr/share/elasticsearch/data
-      - C:\worktool\dockerData\es\logs:/usr/share/elasticsearch/logs
+      - C:\worktool\dockerData\es2\data:/usr/share/elasticsearch/data
+      - C:\worktool\dockerData\es2\logs:/usr/share/elasticsearch/logs
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -24,7 +26,9 @@ services:
       - elknet
 
   logstash:
-    image: logstash:7.9.3
+#    image: logstash:7.9.3
+    build:
+      context: logstash/
     container_name: logstash
     volumes:
       - type: bind
@@ -35,16 +39,10 @@ services:
         source: .\logstash\pipeline
         target: /usr/share/logstash/pipeline
         read_only: true
-      # - type: bind
-      #   source: .\logstash\connect\mysql-connector-java-8.0.17.jar
-      #   target: /usr/share/logstash/mysql-connector-java-8.0.17.jar
-      #   read_only: true
-      # - type: bind
-      #   source: .\logstash\config\jdbc.sql
-      #   target: /usr/share/logstash/config/jdbc.sql
-      #   read_only: true
-      - .\logstash\connect\mysql-connector-java-8.0.17.jar:/usr/share/logstash/mysql-connector-java-8.0.17.jar
-      -  .\logstash\config\jdbc.sql:/usr/share/logstash/config/jdbc.sql
+#      - .\logstash\connect\mysql-connector-java-8.0.17.jar:/usr/share/logstash/mysql-connector-java-8.0.17.jar
+#      - .\logstash\config\jdbc-page.sql:/usr/share/logstash/config/jdbc-page.sql
+      # 中文分词模板
+      - .\logstash\config\ik_zh_template.json:/usr/share/logstash/config/ik_zh_template.json
       # - .\logstash\config\last_id.txt:/usr/share/logstash/config/last_id.txt
       # - type: bind
       #   source: .\logstash\config\last_id.txt
