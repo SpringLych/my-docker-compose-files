@@ -1,0 +1,8 @@
+version: "3"
+services:
+  filebeat:
+    image: elastic/filebeat:7.9.3
+    container_name: filebeat
+    volumes:
+      - .\filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - D:\temp\logs-temp:/var/webapp/logs:ro
