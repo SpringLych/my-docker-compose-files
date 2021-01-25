@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rancher:
+    image: rancher/rancher:stable
+    container_name: rancher
+    ports:
+     - "9080:80"
+     - "9443:443"
+    volumes: 
+#     - /mnt/user/appdata/data/rancher/:/var/lib/rancher/
+     - /usr/data/rancher/:/var/lib/rancher/
+    privileged: true
+#    environment:
+#     - HTTP_PROXY="http://192.168.0.9:3081"
+#     - HTTPS_PROXY="http://192.168.0.9:3081"
+    restart: unless-stopped
